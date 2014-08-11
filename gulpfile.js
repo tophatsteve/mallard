@@ -70,5 +70,5 @@ gulp.task('changelog', function(done){
 
 gulp.task('default', ['dev']);
 gulp.task('dev', ['watch']);
-gulp.task('ci', ['lint', 'test', 'coverage', 'coveralls']);
+gulp.task('ci', ['coverage', 'coveralls']);
 gulp.task('release', ['bump', 'changelog']);
