@@ -1,0 +1,34 @@
+{
+  "name": "mallard",
+  "version": "1.0.0",
+  "description": "Data Classification and Machine Learning algorithms",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevedocious/mallard.git"
+  },
+  "keywords": [
+    "utility"
+  ],
+  "author": "stevedocious",
+  "license": "LGPLv3",
+  "bugs": {
+    "url": "https://github.com/stevedocious/mallard/issues"
+  },
+  "homepage": "https://github.com/stevedocious/mallard",
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "chai": "^1.9.1",
+    "sinon": "^1.10.3",
+    "conventional-changelog": "0.0.11",
+    "gulp-jshint": "^1.8.0",
+    "gulp-mocha": "^0.5.2",
+    "gulp-istanbul": "^0.2.1",
+    "gulp-coveralls": "^0.1.2",
+    "jshint-stylish": "^0.4.0",
+    "gulp-bump": "^0.1.11"
+  }
+}
