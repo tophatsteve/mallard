@@ -30,5 +30,8 @@
     "gulp-coveralls": "^0.1.2",
     "jshint-stylish": "^0.4.0",
     "gulp-bump": "^0.1.11"
+  },
+  "dependencies": {
+    "pocketwrench": "0.0.1"
   }
 }
