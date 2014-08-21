@@ -83,4 +83,57 @@ describe('Mallard Unit Tests', function () {
 
   });
 
+  // The male birds have a glossy green head and are grey on wings and belly, while the females have mainly brown-speckled plumage.
+  // The male has a dark green head, a yellow bill, is mainly purple-brown on the breast and grey on the body.
+  // The female is mainly brown with an orange bill
+  // The males sport a glossy green head and white neck ring, and what the females lack in colour they make up for in noise.
+  // The green head and yellow bill of the mallard duck is a familiar sight to many people living in the Northern hemisphere
+
+  // The bird is predominantly black and white, with the back feathers being iridescent and glossy in males, while the females are more drab.
+  // Wild Muscovy ducks are all black with white patches on the upper and under wing.
+  // They may be black, blue, chocolate, lavender or white
+  // The original, wild type, coloration is black and white, but domestication has produced many more colors, including white, black, chocolate, and blue
+
+
+  describe('Naive Bayes Tests', function() {
+    it('Should remove duplicates when tokenizing', function() {
+      var testString = 'This string has some duplicates, duplicates are in this string.';
+      var tokens = mallard.bayes.tokenize(testString);
+      expect(tokens.length).to.equal(7);
+      expect(tokens[0]).to.equal('this');
+      expect(tokens[1]).to.equal('string');
+      expect(tokens[2]).to.equal('has');
+      expect(tokens[3]).to.equal('some');
+      expect(tokens[4]).to.equal('duplicates');
+      expect(tokens[5]).to.equal('are');
+      expect(tokens[6]).to.equal('in');
+    });
+    it('Should remove punctuation when tokenizing', function() {
+      var testString = 'This string, has some, punctuation!';
+      var tokens = mallard.bayes.tokenize(testString);
+      var tokenizedString = tokens.join(' ');
+      var indexOfComma = tokenizedString.indexOf(',');
+      expect(indexOfComma).to.equal(-1);
+    });
+    it('Should use the training dataset to create a vocabulary with unique values', function() {
+      var trainedDataset = mallard.bayes.train(nominalDataset);
+      expect(trainedDataset.vocabulary.length).to.equal(9);
+    });
+    it('Should use the training dataset to create a probability row for each category', function() {
+      var trainedDataset = mallard.bayes.train(nominalDataset);
+      expect(trainedDataset.probabilities.length).to.equal(3);
+    });
+    it('Should have at least a 85% accuracy rate', function() {
+      var trainedDataset = mallard.bayes.train(nominalDataset);
+      var correctlyIdentified = 0;
+      for(var x = 0; x < nominalDataset.length; x++) {
+        var result = mallard.bayes.classify(nominalDataset[x].datapoints, trainedDataset);
+        if(result.category == nominalDataset[x].category) {
+          correctlyIdentified++;
+        }
+      }
+      var percentageCorrect = (correctlyIdentified / nominalDataset.length) * 100.0;
+      expect(percentageCorrect).to.be.at.least(85);
+    });
+  });
 });
