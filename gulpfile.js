@@ -28,9 +28,9 @@ gulp.task('coverage', function(cb) {
     .on('finish', function () {
       gulp.src(['test/*.js'])
         .pipe(mocha())
-        .pipe(istanbul.writeReports())
-        .on('end', cb);
+        .pipe(istanbul.writeReports());
     });
+    //.on('end', cb);
 });
 
 gulp.task('watch', function() {
@@ -83,5 +83,5 @@ gulp.task('changelog', ['bump'], function(done){
 
 gulp.task('default', ['dev']);
 gulp.task('dev', ['watch']);
-gulp.task('ci', ['coverage', 'coveralls']);
+gulp.task('ci', ['coveralls']);
 gulp.task('release', ['tag']);
