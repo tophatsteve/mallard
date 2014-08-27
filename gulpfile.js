@@ -7,6 +7,7 @@ var istanbul = require('gulp-istanbul');
 var stylish = require('jshint-stylish');
 var coveralls = require('gulp-coveralls');
 var bump = require('gulp-bump');
+var git = require('gulp-git');
 
 // ------------------------ DEV tasks
 gulp.task('test', ['lint'], function () {
@@ -22,7 +23,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('coverage', function(cb) {
-  gulp.src(['lib/**/*.js', 'index.js'])
+  return gulp.src(['lib/**/*.js', 'index.js'])
     .pipe(istanbul())
     .on('finish', function () {
       gulp.src(['test/*.js'])
@@ -33,23 +34,35 @@ gulp.task('coverage', function(cb) {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['lib/*.js', 'index.js'], ['lint', 'test']);
+    return gulp.watch(['lib/*.js', 'index.js'], ['lint', 'test']);
 });
 
 gulp.task('coveralls', ['coverage'], function() {
-  gulp.src('coverage/**/lcov.info')
+  return gulp.src('coverage/**/lcov.info')
   .pipe(coveralls());
 });
 
 // ------------------------ RELEASE tasks
 
 gulp.task('bump', function(){
-  gulp.src('./package.json')
+  return gulp.src('./package.json')
   .pipe(bump({type:'minor'}))
   .pipe(gulp.dest('./'));
 });
 
-gulp.task('changelog', function(done){
+gulp.task('tag', ['changelog'], function () {
+  var pkg = require('./package.json');
+  var v = 'v' + pkg.version;
+  var message = 'Release ' + v;
+
+  return gulp.src('./')
+    .pipe(git.commit(message))
+    .pipe(git.tag(v, message))
+    .pipe(git.push('origin', 'master', '--tags'))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('changelog', ['bump'], function(done){
   function changeParsed(err, log){
     if (err) {
       return done(err);
@@ -61,7 +74,7 @@ gulp.task('changelog', function(done){
     ref$ = JSON.parse(data);
     repository = ref$.repository;
     version = ref$.version;
-    changelog({
+    return changelog({
       repository: repository.url,
       version: version
     }, changeParsed);
@@ -71,4 +84,4 @@ gulp.task('changelog', function(done){
 gulp.task('default', ['dev']);
 gulp.task('dev', ['watch']);
 gulp.task('ci', ['coverage', 'coveralls']);
-gulp.task('release', ['bump', 'changelog']);
+gulp.task('release', ['tag']);
