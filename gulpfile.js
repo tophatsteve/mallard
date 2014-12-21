@@ -29,8 +29,8 @@ gulp.task('coverage', function(cb) {
       gulp.src(['test/*.js'])
         .pipe(mocha())
         .pipe(istanbul.writeReports())
-    })
-    .on('end', cb);
+    });
+    //.on('end', cb);
 });
 
 gulp.task('watch', function() {
