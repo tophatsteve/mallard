@@ -6,6 +6,7 @@ Data Classification and Machine Learning algorithms.
 [![NPM version](https://badge.fury.io/js/mallard.svg)](http://badge.fury.io/js/mallard)
 [![Build Status](https://travis-ci.org/tophatsteve/mallard.svg?branch=master)](https://travis-ci.org/tophatsteve/mallard)
 [![Coverage Status](https://img.shields.io/coveralls/tophatsteve/mallard.svg)](https://coveralls.io/r/tophatsteve/mallard?branch=master)
+[![status](https://sourcegraph.com/repos/github.com/tophatsteve/mallard/.badges/status.png)](https://sourcegraph.com/github.com/tophatsteve/mallard)
 
 ### Module Overview
 
