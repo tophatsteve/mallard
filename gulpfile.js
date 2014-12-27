@@ -23,7 +23,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('coverage', function(cb) {
-  return gulp.src(['lib/**/*.js', 'index.js'])
+  gulp.src(['lib/**/*.js', 'index.js'])
     .pipe(istanbul())
     .on('finish', function () {
       gulp.src(['test/*.js'])
@@ -31,6 +31,7 @@ gulp.task('coverage', function(cb) {
         .pipe(istanbul.writeReports())
     });
     //.on('end', cb);
+    cb();
 });
 
 gulp.task('watch', function() {
