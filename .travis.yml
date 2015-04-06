@@ -1,8 +1,18 @@
 language: node_js
 node_js:
   - '0.10'
+
+addons:
+  code_climate:
+    repo_token: 563e02929f350f5e74dd8aba026fb6e5176f74a08e15c5e37681703c7631ec22
+
 before_script:
   - 'npm install -g gulp'
+  - 'npm install -g codeclimate-test-reporter'
+
+after_script:
+  - cat lcov.info | codeclimate
 
 script:
   - gulp ci
+
